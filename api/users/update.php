@@ -18,11 +18,7 @@ $user->id = $data->id;
 $user->name = $data->name;
 $user->vacation_days = $data->vacation_days;
 
-if($user->update()) {
-    $msg = "Person Update Success";
-} else {
-    $msg = "Person Update Fail";
-}
+$msg = $user->update() ? "Person Update Success" : "Person Update Fail";
 
 echo json_encode(
     array("Message" => $msg)

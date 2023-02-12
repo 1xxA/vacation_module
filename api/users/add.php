@@ -12,7 +12,7 @@ $conn = $db->connect();
 
 $user = new User($conn);
 
-$data = json_decode(file_get_contents("php://input")); // stream_get_contents file_get_contents
+$data = json_decode(file_get_contents("php://input"));
 
 $user->name = $data->name;
 $user->vacation_days = $data->vacation_days;

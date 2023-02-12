@@ -32,8 +32,14 @@ class User {
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->name = $row['name'];
-        $this->vacation_days = $row['vacation_days'];
+        if($stmt->rowCount() === 1) {
+            $this->name = $row['name'];
+            $this->vacation_days = $row['vacation_days'];
+        } else {
+            $this->name = 'dummy';
+            $this->vacation_days = 0;
+        }
+        
 
     }
 
