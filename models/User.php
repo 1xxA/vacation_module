@@ -55,4 +55,53 @@ class User {
 
     }
 
+    public function add() {
+        $query = 'INSERT INTO ' . $this->table . ' (name, vacation_days) VALUES (:name, :vacation_days);';
+        $stmt = $this->conn->prepare($query);
+
+        $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->vacation_days = htmlspecialchars(strip_tags($this->vacation_days));
+
+        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':vacation_days', $this->vacation_days);
+
+        if($stmt->execute()) {
+            return true;
+        } 
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+
+    }
+
+
+    public function update() {
+        $query = 'UPDATE ' . $this->table . 
+        ' SET name=:name,
+            vacation_days=:vacation_days 
+            WHERE id=:id;';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->vacation_days = htmlspecialchars(strip_tags($this->vacation_days));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        
+        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':vacation_days', $this->vacation_days);
+        $stmt->bindParam(':id', $this->id);
+
+        if($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+
+
+        
+    }
+
+
+
+
 }
